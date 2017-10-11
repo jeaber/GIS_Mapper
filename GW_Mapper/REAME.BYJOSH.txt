@@ -1,0 +1,6 @@
+1. Open index.html (run in Chrome)
+2. Open .xls
+	-accepted files are "Anoka Monitoring...", "WDE Monitoring", "East Bethel Monitoring"
+3. Opens the "Gas Well" worksheet.
+4. Boxes are draggable but won't be saved the next time you open it up or refresh browser.
+

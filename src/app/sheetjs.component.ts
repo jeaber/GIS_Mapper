@@ -35,9 +35,9 @@ export class SheetJSComponent {
 	currentImage: string = '';
 	currentLandfill: string;
 	images = {
-		'anoka': "./../assets/img/dots/Anoka_Gas_Well_Map.png",
-		'eastBethel': "./../assets/img/dots/East_Bethel_Gas_Well_Map.png",
-		'wde': "./../assets/img/dots/WDE_Gas_Well_Map.png",
+		'anoka': "./assets/img/dots/Anoka_Gas_Well_Map.png",
+		'eastBethel': "./assets/img/dots/East_Bethel_Gas_Well_Map.png",
+		'wde': "./assets/img/dots/WDE_Gas_Well_Map.png",
 	}
 	translateData = {
 		"anoka": {
