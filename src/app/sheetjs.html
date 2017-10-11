@@ -1,0 +1,29 @@
+<div class="input-container">
+	<input type="file" (change)="onFileChange($event)" multiple="false" style="z-index:1000" />
+</div>
+<!-- <div class='main-container' [style.background-image]="'url(' + currentImage + ')'"> -->
+<div class='main-container'>
+	<img [src]='currentImage' class="background-image">
+	<div *ngFor="let gw of data">
+		<div [style.transform]="getTransform(gw[0])" *ngIf="isData(gw[0])" class="data-box" ngDraggable (stopped)="onDragEnd($event, gw)">
+			<div class="data-item">
+				{{gw[0]}}
+			</div>
+			<div class="data-item" *ngIf="gw[1]">Temp
+				<span class="data-value">{{gw[1]}}</span>
+			</div>
+			<div class="data-item" *ngIf="gw[4]">O2%
+				<span class="data-value">{{gw[4]}}</span>
+			</div>
+			<div class="data-item" *ngIf="gw[5]">CH4%
+				<span class="data-value">{{gw[5]}}</span>
+			</div>
+			<div class="data-item" *ngIf="gw[6]">CO2%
+				<span class="data-value">{{gw[6]}}</span>
+			</div>
+			<div class="data-item" *ngIf="gw[99]">
+				{{gw[99]}}
+			</div>
+		</div>
+	</div>
+</div>

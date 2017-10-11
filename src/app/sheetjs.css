@@ -1,0 +1,50 @@
+.main-container {
+	width: 800px;
+	height: 800px;
+	position: absolute;
+}
+img{
+	position: absolute;
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}     
+.data-box {
+	padding: 2px;
+	width: 60px;
+	height: auto;
+	font-size: 10px;
+	border-radius: 2%;
+	border: 1px solid black;
+	background: white;
+	opacity: .9;
+	z-index: 100;
+	position: absolute;
+}
+.ng-draggable {
+  cursor: move;
+}
+.data-value {
+	float: right;
+}
+.data-item {
+	clear: both;
+	width: 100%;
+}
+.input-container {
+	margin: auto;
+	width: 20em;
+	padding: 1em;
+	border: 1px solid black;
+	border-radius: 5%;
+}
+@media print
+{    
+	.input-container, .input-container *
+    {
+        display: none !important;
+    }
+}
