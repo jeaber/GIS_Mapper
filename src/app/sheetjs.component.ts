@@ -229,10 +229,43 @@ export class SheetJSComponent {
 					}
 				});
 			}
+			this.data = this.processData(this.data);
 		};
 		reader.readAsBinaryString(target.files[0]);
 	}
-
+	processData(data: Array<any>) {
+		let newData = [];
+		let temp: any;
+		let oxygen: any;
+		let methane: any;
+		let co: any;
+		data.forEach(item => {
+			if (item[0] === 'No.') {
+				for (let i = 0; i < item.length; i++) {
+					if (item[i] === '(F)')
+						temp = i;
+					if (item[i] === 'Oxygen')
+						oxygen = i;
+					if (item[i] === 'Methane')
+						methane = i;
+					if (item[i] === 'CO2')
+						co = i;
+				}
+			}
+			if (this.isData(item[0])) {
+				let array = [];
+				array.push(item[0]);
+				array.push(item[temp]);
+				array.push(item[oxygen]);
+				array.push(item[methane]);
+				array.push(item[co]);
+				if (item[99])
+					array.push(item[99]);
+				newData.push(array);
+			}
+		});
+		return newData;
+	}
 	export(): void {
 		/* generate worksheet */
 		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
@@ -258,7 +291,7 @@ export class SheetJSComponent {
 		if (gw)
 			return this.translateData[this.currentLandfill][gw];
 	}
-	isData(gw) {
+	isData(gw: String) {
 		if ((gw && gw.substring(0, 2) === "GW") || (gw && gw.substring(0, 3) === "HEW"))
 			return true;
 		else

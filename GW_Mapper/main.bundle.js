@@ -298,8 +298,43 @@ var SheetJSComponent = (function () {
                     }
                 });
             }
+            _this.data = _this.processData(_this.data);
         };
         reader.readAsBinaryString(target.files[0]);
+    };
+    SheetJSComponent.prototype.processData = function (data) {
+        var _this = this;
+        var newData = [];
+        var temp;
+        var oxygen;
+        var methane;
+        var co;
+        data.forEach(function (item) {
+            if (item[0] === 'No.') {
+                for (var i = 0; i < item.length; i++) {
+                    if (item[i] === '(F)')
+                        temp = i;
+                    if (item[i] === 'Oxygen')
+                        oxygen = i;
+                    if (item[i] === 'Methane')
+                        methane = i;
+                    if (item[i] === 'CO2')
+                        co = i;
+                }
+            }
+            if (_this.isData(item[0])) {
+                var array = [];
+                array.push(item[0]);
+                array.push(item[temp]);
+                array.push(item[oxygen]);
+                array.push(item[methane]);
+                array.push(item[co]);
+                if (item[99])
+                    array.push(item[99]);
+                newData.push(array);
+            }
+        });
+        return newData;
     };
     SheetJSComponent.prototype.export = function () {
         /* generate worksheet */
@@ -373,7 +408,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/sheetjs.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"input-container\">\n\t<input type=\"file\" (change)=\"onFileChange($event)\" multiple=\"false\" style=\"z-index:1000\" />\n</div>\n<!-- <div class='main-container' [style.background-image]=\"'url(' + currentImage + ')'\"> -->\n<div class='main-container'>\n\t<img [src]='currentImage' class=\"background-image\">\n\t<div *ngFor=\"let gw of data\">\n\t\t<div [style.transform]=\"getTransform(gw[0])\" *ngIf=\"isData(gw[0])\" class=\"data-box\" ngDraggable (stopped)=\"onDragEnd($event, gw)\">\n\t\t\t<div class=\"data-item\">\n\t\t\t\t{{gw[0]}}\n\t\t\t</div>\n\t\t\t<div class=\"data-item\" *ngIf=\"gw[1]\">Temp\n\t\t\t\t<span class=\"data-value\">{{gw[1]}}</span>\n\t\t\t</div>\n\t\t\t<div class=\"data-item\" *ngIf=\"gw[4]\">O2%\n\t\t\t\t<span class=\"data-value\">{{gw[4]}}</span>\n\t\t\t</div>\n\t\t\t<div class=\"data-item\" *ngIf=\"gw[5]\">CH4%\n\t\t\t\t<span class=\"data-value\">{{gw[5]}}</span>\n\t\t\t</div>\n\t\t\t<div class=\"data-item\" *ngIf=\"gw[6]\">CO2%\n\t\t\t\t<span class=\"data-value\">{{gw[6]}}</span>\n\t\t\t</div>\n\t\t\t<div class=\"data-item\" *ngIf=\"gw[99]\">\n\t\t\t\t{{gw[99]}}\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>"
+module.exports = "<div class=\"input-container\">\n\t<input type=\"file\" (change)=\"onFileChange($event)\" multiple=\"false\" style=\"z-index:1000\" />\n</div>\n<!-- <div class='main-container' [style.background-image]=\"'url(' + currentImage + ')'\"> -->\n<div class='main-container'>\n\t<img [src]='currentImage' class=\"background-image\">\n\t<div *ngFor=\"let gw of data\">\n\t\t<div [style.transform]=\"getTransform(gw[0])\" *ngIf=\"isData(gw[0])\" class=\"data-box\" ngDraggable (stopped)=\"onDragEnd($event, gw)\">\n\t\t\t<div class=\"data-item\">\n\t\t\t\t{{gw[0]}}\n\t\t\t</div>\n\t\t\t<div class=\"data-item\" *ngIf=\"gw[1]\">Temp\n\t\t\t\t<span class=\"data-value\">{{gw[1]}}</span>\n\t\t\t</div>\n\t\t\t<div class=\"data-item\" *ngIf=\"gw[2]\">O2%\n\t\t\t\t<span class=\"data-value\">{{gw[2]}}</span>\n\t\t\t</div>\n\t\t\t<div class=\"data-item\" *ngIf=\"gw[3]\">CH4%\n\t\t\t\t<span class=\"data-value\">{{gw[3]}}</span>\n\t\t\t</div>\n\t\t\t<div class=\"data-item\" *ngIf=\"gw[4]\">CO2%\n\t\t\t\t<span class=\"data-value\">{{gw[4]}}</span>\n\t\t\t</div>\n\t\t\t<div class=\"data-item\" *ngIf=\"gw[5]\">\n\t\t\t\t{{gw[5]}}\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>"
 
 /***/ }),
 
